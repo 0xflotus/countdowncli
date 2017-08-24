@@ -17,6 +17,9 @@ public class TimeConverter {
     }
 
     public String convertMinutesToString(int allMinutes){
+        if (allMinutes < 0) {
+            return "Zeit ist abgelaufen.";
+        }
         int tHours = allMinutes / 60;
         int tMinutes = allMinutes % 60;
         return String.format("%d:%02d", tHours, tMinutes);

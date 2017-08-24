@@ -38,4 +38,9 @@ public class TimeConverterTest {
     public void testOneHundredFiveString() {
         assertEquals("1:45", timeConverter.convertMinutesToString(105));
     }
+
+    @Test
+    public void testNegativeMinutes(){
+        assertEquals("Zeit ist abgelaufen.", timeConverter.convertMinutesToString(-3));
+    }
 }

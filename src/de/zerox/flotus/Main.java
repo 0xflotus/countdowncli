@@ -5,11 +5,12 @@ import de.zerox.flotus.util.UptimeHandler;
 import org.apache.commons.cli.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Options options = new Options();
         options.addOption("h", "show help");
         options.addOption("d", "show how many time left");
@@ -32,19 +33,23 @@ public class Main {
         }
         TimeConverter tc = new TimeConverter();
 
+        List<String> list = new ArrayList<String>();
         if (cmd.hasOption("d")) {
-            int uptime = tc.convertStringToMinutes(uh.getUptime());
-            int difference = tc.convertStringToMinutes("8:30") - uptime;
-            System.out.println(tc.convertMinutesToString(difference));
-        } else if (cmd.hasOption("c")) {
-            System.out.println(uh.getCurrentTime());
-        } else if (cmd.hasOption("h")) {
+            list.add(uh.getUptime());
+        }
+        if (cmd.hasOption("c")) {
+            list.add(uh.getCurrentTime());
+        }
+        if (cmd.hasOption("h")) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("countdown", options);
         } else {
-            System.out.println(uh.getUptime());
+            int uptime = tc.convertStringToMinutes(uh.getUptime());
+            int difference = tc.convertStringToMinutes("8:30") - uptime;
+            list.add(tc.convertMinutesToString(difference));
         }
-
-
+        for (String str : list) {
+            System.out.println(str);
+        }
     }
 }

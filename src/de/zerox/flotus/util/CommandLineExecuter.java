@@ -17,6 +17,6 @@ public class CommandLineExecuter {
 
     public String executeCommand(String command) throws IOException {
         Scanner scanner = new Scanner(Runtime.getRuntime().exec(command).getInputStream()).useDelimiter("\\A");
-        return scanner.hasNext() ? scanner.next() : "";
+        return scanner.hasNext() ? scanner.next().trim() : "No output";
     }
 }
